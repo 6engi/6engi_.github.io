@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-NRQNQDDB81"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-NRQNQDDB81");
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Día de la Mujer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Playfair Display", serif;
+        text-align: center;
+        background-color: #000;
+        color: #ff0000;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        display: none;
+      }
+      .marquee {
+        position: absolute;
+        white-space: nowrap;
+        font-size: 12em;
+        font-weight: bold;
+        text-shadow: 0 0 10px #ff0000, 0 0 20px #ff4500, 0 0 30px #ff6347;
+        border: 5px solid #ff4500;
+        padding: 20px;
+        border-radius: 20px;
+        animation: scrollText 8s linear infinite;
+      }
+      @keyframes scrollText {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(-100%);
+        }
+      }
+      .particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        display: none;
+      }
+      .particle {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background-color: #ff0000;
+        border-radius: 50%;
+        opacity: 0.7;
+        animation: floatParticles 5s linear infinite;
+      }
+      @keyframes floatParticles {
+        from {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(-100vh);
+          opacity: 0;
+        }
+      }
+      .frame {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        border: 10px solid #ff4500;
+        border-radius: 30px;
+        box-shadow: 0 0 20px #ff4500;
+        display: none;
+      }
+      .start-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px 40px;
+        font-size: 2em;
+        background-color: #ff4500;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 0 10px #ff4500;
+        transition: transform 0.2s;
+      }
+      .start-button:hover {
+        transform: translate(-50%, -50%) scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="laugh-sound" src="laugh.mp3"></audio>
+    <button class="start-button" onclick="attemptStart()">Iniciar</button>
+    <div class="container">
+      <div class="marquee">FELIZZZZZZ DÍA DE LA MUJER👄👄👄</div>
+    </div>
+    <div class="frame"></div>
+    <div class="particles"></div>
+    <script>
+      let attempts = 0;
+
+      function attemptStart() {
+        attempts++;
+        playLaughSound();
+        if (attempts < 3) {
+          moveButtonRandomly();
+        } else {
+          document.querySelector(".start-button").style.display = "none";
+          document.querySelector(".container").style.display = "flex";
+          document.querySelector(".frame").style.display = "block";
+          document.querySelector(".particles").style.display = "block";
+          createParticles();
+        }
+      }
+
+      function playLaughSound() {
+        document.getElementById("laugh-sound").play();
+      }
+
+      function createParticles() {
+        const particlesContainer = document.querySelector(".particles");
+        setInterval(() => {
+          let particle = document.createElement("div");
+          particle.classList.add("particle");
+          particle.style.left = Math.random() * 100 + "vw";
+          particle.style.top = Math.random() * 100 + "vh";
+          particle.style.animationDuration = Math.random() * 3 + 2 + "s";
+          particlesContainer.appendChild(particle);
+          setTimeout(() => particle.remove(), 5000);
+        }, 300);
+      }
+
+      function moveButtonRandomly() {
+        const button = document.querySelector(".start-button");
+        const randomTop = Math.random() * 80 + "vh";
+        const randomLeft = Math.random() * 80 + "vw";
+        button.style.top = randomTop;
+        button.style.left = randomLeft;
+        button.style.transform = "translate(-50%, -50%)";
+      }
+    </script>
+  </body>
+</html>
